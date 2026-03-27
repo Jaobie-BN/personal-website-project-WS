@@ -1,1 +1,173 @@
-/* Styles will be added step-by-step */
+/* 
+    MODERN DESIGN SYSTEM
+    - Focus: Accessibility, Performance, and Premium Aesthetics
+    - Techniques: CSS Grid, Flexbox, Custom Variables
+*/
+
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Outfit:wght@400;600;700&display=swap");
+
+:root {
+  /* Color Palette - Sophisticated Dark Theme */
+  --bg-primary: #0f172a;
+  --bg-secondary: #1e293b;
+  --accent-primary: #38bdf8;
+  --accent-secondary: #818cf8;
+  --text-primary: #f8fafc;
+  --text-secondary: #94a3b8;
+  --glass-bg: rgba(30, 41, 59, 0.7);
+  --glass-border: rgba(255, 255, 255, 0.1);
+
+  /* Spacing & Sizing */
+  --container-width: 1200px;
+  --header-height: 80px;
+  --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* 1. RESET & BASE STYLES */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: "Inter", sans-serif;
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  line-height: 1.6;
+  overflow-x: hidden;
+  /* CSS GRID: Overall Page Layout */
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  min-height: 100vh;
+}
+
+h1,
+h2,
+h3 {
+  font-family: "Outfit", sans-serif;
+  color: var(--text-primary);
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+  transition: var(--transition-smooth);
+}
+
+ul {
+  list-style: none;
+}
+
+/* 2. ACCESSIBILITY: Skip Link */
+.skip-link {
+  position: absolute;
+  top: -100px;
+  left: 0;
+  background: var(--accent-primary);
+  color: var(--bg-primary);
+  padding: 1rem;
+  z-index: 1000;
+}
+
+.skip-link:focus {
+  top: 0;
+}
+
+/* 3. HEADER & NAVIGATION - FLEXBOX */
+header {
+  height: var(--header-height);
+  background: var(--glass-bg);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--glass-border);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+nav {
+  max-width: var(--container-width);
+  margin: 0 auto;
+  height: 100%;
+  padding: 0 2rem;
+  /* FLEXBOX: Logo and Menu alignment */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+  font-family: "Outfit", sans-serif;
+  font-size: 1.8rem;
+  font-weight: 700;
+  background: linear-gradient(
+    to right,
+    var(--accent-primary),
+    var(--accent-secondary)
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+nav ul {
+  /* FLEXBOX: Navigation Links */
+  display: flex;
+  gap: 2.5rem;
+}
+
+nav ul li a {
+  font-weight: 500;
+  color: var(--text-secondary);
+}
+
+nav ul li a:hover,
+nav ul li a[aria-current="page"] {
+  color: var(--accent-primary);
+}
+
+/* 4. MAIN CONTENT LAYOUT - GRID */
+main {
+  max-width: var(--container-width);
+  margin: 2rem auto;
+  padding: 0 2rem;
+  width: 100%;
+}
+
+section {
+  padding: 4rem 0;
+  border-bottom: 1px solid var(--glass-border);
+}
+
+section:last-of-type {
+  border-bottom: none;
+}
+
+/* 5. FOOTER STYLING */
+footer {
+  padding: 3rem 2rem;
+  background: var(--bg-secondary);
+  text-align: center;
+  border-top: 1px solid var(--glass-border);
+}
+
+.attribution {
+  display: block;
+  margin-top: 1rem;
+  color: var(--text-secondary);
+  font-size: 0.85rem;
+}
+
+/* 6. RESPONSIVE DESIGN FOUNDATION */
+@media (max-width: 768px) {
+  nav {
+    flex-direction: column;
+    height: auto;
+    padding: 1rem;
+  }
+
+  nav ul {
+    margin-top: 1rem;
+    gap: 1rem;
+  }
+}

@@ -1,11 +1,70 @@
 <!doctype html>
-<html>
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Personal Portfolio Website - High-performance and accessible portfolio."
+    />
+    <link rel="icon" href="/public/favicon.png" type="image/png" />
+    <!-- 
+        BEST PRACTICE: External CSS linked here. 
+        Folder structure: css/style.css
+    -->
+    <link rel="stylesheet" href="css/style.css" />
     <title>Personal Website</title>
   </head>
   <body>
-    <h1>Personal Website</h1>
+    <!-- 
+        ACCESSIBILITY: Skip link for keyboard users to navigate efficiently.
+    -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <!-- Header Section: Semantic navigation -->
+    <header>
+      <nav aria-label="Main Navigation">
+        <div class="logo">MyPortfolio</div>
+        <ul>
+          <li><a href="#home">Home</a></li>
+          <li><a href="#mini-game">Mini Game</a></li>
+          <li><a href="#cv">Curriculum Vitae</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <!-- Main Content: Root for all page content -->
+    <main id="main-content">
+      <!-- Hero/Home Section -->
+      <section id="home">
+        <h1>Personal Website</h1>
+        <p>Welcome to my professional portfolio.</p>
+      </section>
+
+      <!-- About Section Placeholder -->
+      <section id="about">
+        <h2>About Me</h2>
+        <p>Content coming soon...</p>
+      </section>
+
+      <!-- Curriculum Vitae Section -->
+      <section id="cv">
+        <h2>Curriculum Vitae</h2>
+        <p>
+          Professional experience and education details will be listed here.
+        </p>
+      </section>
+    </main>
+
+    <!-- Footer Section -->
+    <footer>
+      <p>&copy; 2026 MyPortfolio. All rights reserved.</p>
+    </footer>
+
+    <!-- 
+        PROGRESSIVE ENHANCEMENT: JS loaded at the end.
+        Folder structure: js/script.js
+    -->
+    <script src="js/script.js" defer></script>
   </body>
 </html>

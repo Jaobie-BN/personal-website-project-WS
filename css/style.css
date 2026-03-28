@@ -146,6 +146,11 @@ nav a[aria-current="page"] {
   color: var(--clr-accent-100);
 }
 
+/* Base style for toggle (always hidden on desktop) */
+.menu-toggle {
+  display: none;
+}
+
 /* 4. MAIN CONTENT (BEST PRACTICE: Modern Grid) */
 main {
   max-width: var(--size-container);
@@ -262,33 +267,75 @@ h3 {
 /* Mobile Breakpoint (768px) */
 @media (max-width: 768px) {
   :root {
-    --size-header: auto;
+    --size-header: 70px;
   }
 
   body {
     grid-template-rows: auto 1fr auto;
   }
 
-  nav {
+  /* Hamburger Button */
+  .menu-toggle {
+    display: flex;
     flex-direction: column;
-    padding-block: 1.5rem;
-    gap: 1.5rem;
+    justify-content: space-around;
+    width: 30px;
+    height: 24px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    z-index: 200;
+  }
+
+  .menu-toggle span {
+    width: 30px;
+    height: 3px;
+    background: var(--clr-accent-100);
+    border-radius: 10px;
+    transition: var(--transition-base);
+  }
+
+  /* Toggle to X animation */
+  .menu-toggle.active span:nth-child(1) {
+    transform: rotate(45deg) translate(5px, 5px);
+  }
+  .menu-toggle.active span:nth-child(2) {
+    opacity: 0;
+  }
+  .menu-toggle.active span:nth-child(3) {
+    transform: rotate(-45deg) translate(7px, -6px);
   }
 
   nav ul {
-    flex-direction: row;
-    justify-content: center;
+    position: fixed;
+    inset-block-start: var(--size-header);
+    inset-inline-start: -100%;
     width: 100%;
-    gap: 1rem;
+    height: calc(100vh - var(--size-header));
+    background: var(--clr-bg-100);
+    backdrop-filter: blur(20px);
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2.5rem;
+    transition: var(--transition-base);
+    z-index: 150;
+    font-size: 1.25rem;
+  }
+
+  nav ul.active {
+    inset-inline-start: 0;
   }
 
   main {
     padding-inline: 1rem;
+    padding-block-start: 1.5rem;
   }
 
   section,
   article {
-    padding-block: 3rem;
+    padding-block: 2rem;
   }
 
   .cv-header {
@@ -297,23 +344,6 @@ h3 {
 
   .skills-grid {
     grid-template-columns: 1fr;
-  }
-}
-
-/* Small Device Breakpoint (480px) */
-@media (max-width: 480px) {
-  nav ul {
-    flex-direction: column;
-    align-items: center;
-    gap: 0.75rem;
-  }
-
-  .logo {
-    font-size: 1.5rem;
-  }
-
-  footer {
-    padding-block: 2rem;
   }
 }
 

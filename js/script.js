@@ -135,6 +135,50 @@
   }
 
   // --- 5. EVENT LISTENERS ---
-  elements.startBtn.addEventListener("click", startGame);
+  if (elements.startBtn) {
+    elements.startBtn.addEventListener("click", startGame);
+  }
   elements.moles.forEach((mole) => mole.addEventListener("click", whack));
+})();
+
+/**
+ * NAVIGATION MODULE
+ * Handles the mobile hamburger menu toggle functionality.
+ */
+(function () {
+  "use strict";
+
+  const menuToggle = document.querySelector(".menu-toggle");
+  const navMenu = document.querySelector("nav ul");
+  const navLinks = document.querySelectorAll("nav ul li a");
+
+  if (!menuToggle || !navMenu) return;
+
+  /**
+   * Toggle the navigation menu open/close state
+   */
+  function toggleMenu() {
+    const isExpanded = menuToggle.getAttribute("aria-expanded") === "true";
+
+    // Toggle classes and ARIA attributes for accessibility
+    menuToggle.setAttribute("aria-expanded", !isExpanded);
+    menuToggle.classList.toggle("active");
+    navMenu.classList.toggle("active");
+
+    // Prevent scrolling when menu is open
+    document.body.style.overflow = !isExpanded ? "hidden" : "";
+  }
+
+  // Handle click on hamburger button
+  menuToggle.addEventListener("click", toggleMenu);
+
+  // Close menu when a navigation link is clicked
+  navLinks.forEach((link) => {
+    link.addEventListener("click", () => {
+      menuToggle.classList.remove("active");
+      navMenu.classList.remove("active");
+      menuToggle.setAttribute("aria-expanded", "false");
+      document.body.style.overflow = "";
+    });
+  });
 })();

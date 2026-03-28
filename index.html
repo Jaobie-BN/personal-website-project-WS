@@ -17,8 +17,46 @@
     <!-- 
         BEST PRACTICE: External CSS linked here. 
     -->
-    <link rel="stylesheet" href="css/style.css" />
-    <title>Milopa</title>
+    <style>
+      :root {
+        --clr-bg-100: #0f172a;
+        --clr-bg-200: #1e293b;
+        --clr-accent-100: #38bdf8;
+        --clr-txt-100: #f8fafc;
+        --size-header: 80px;
+      }
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        font-family: "Inter", sans-serif;
+        background-color: var(--clr-bg-100);
+        color: var(--clr-txt-100);
+        display: grid;
+        grid-template-rows: auto 1fr auto;
+        min-block-size: 100vh;
+      }
+      header {
+        block-size: var(--size-header);
+        position: sticky;
+        inset-block-start: 0;
+        z-index: 100;
+      }
+    </style>
+    <link
+      rel="preload"
+      href="css/style.css"
+      as="style"
+      onload="
+        this.onload = null;
+        this.rel = 'stylesheet';
+      "
+    />
+    <noscript><link rel="stylesheet" href="css/style.css" /></noscript>
   </head>
   <body>
     <!-- 

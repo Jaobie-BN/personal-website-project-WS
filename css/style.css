@@ -1,173 +1,250 @@
 /* 
     MODERN DESIGN SYSTEM
-    - Focus: Accessibility, Performance, and Premium Aesthetics
-    - Techniques: CSS Grid, Flexbox, Custom Variables
+    - Principles: Progressive Enhancement, Accessibility (AA), Responsive Design
+    - Best Practices: Custom Properties, Logical Properties, Grid/Flexbox
 */
 
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Outfit:wght@400;600;700&display=swap");
 
 :root {
-  /* Color Palette - Sophisticated Dark Theme */
-  --bg-primary: #0f172a;
-  --bg-secondary: #1e293b;
-  --accent-primary: #38bdf8;
-  --accent-secondary: #818cf8;
-  --text-primary: #f8fafc;
-  --text-secondary: #94a3b8;
+  /* Color Tokens */
+  --clr-bg-100: #0f172a;
+  --clr-bg-200: #1e293b;
+  --clr-accent-100: #38bdf8;
+  --clr-accent-200: #818cf8;
+  --clr-txt-100: #f8fafc;
+  --clr-txt-200: #94a3b8;
+
+  /* Effects */
   --glass-bg: rgba(30, 41, 59, 0.7);
   --glass-border: rgba(255, 255, 255, 0.1);
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-md:
+    0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
 
-  /* Spacing & Sizing */
-  --container-width: 1200px;
-  --header-height: 80px;
-  --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  /* Layout Tokens */
+  --size-container: 1200px;
+  --size-header: 80px;
+  --radius-md: 12px;
+  --transition-base: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* 1. RESET & BASE STYLES */
-* {
+/* 1. RESET & BASE (BEST PRACTICE: Modern Box Sizing) */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
   margin: 0;
   padding: 0;
-  box-sizing: border-box;
+}
+
+html {
   scroll-behavior: smooth;
+  color-scheme: dark;
 }
 
 body {
-  font-family: "Inter", sans-serif;
-  background-color: var(--bg-primary);
-  color: var(--text-primary);
+  font-family:
+    "Inter",
+    system-ui,
+    -apple-system,
+    sans-serif;
+  background-color: var(--clr-bg-100);
+  color: var(--clr-txt-100);
   line-height: 1.6;
-  overflow-x: hidden;
-  /* CSS GRID: Overall Page Layout */
+  min-inline-size: 320px;
+
+  /* GRID LAYOUT: Foundation */
   display: grid;
   grid-template-rows: auto 1fr auto;
-  min-height: 100vh;
+  min-block-size: 100vh;
 }
 
 h1,
 h2,
 h3 {
   font-family: "Outfit", sans-serif;
-  color: var(--text-primary);
+  line-height: 1.2;
+  margin-block-end: 1rem;
 }
 
-a {
-  text-decoration: none;
-  color: inherit;
-  transition: var(--transition-smooth);
+/* 2. ACCESSIBILITY (BEST PRACTICE: Focus Visible & Skip Link) */
+:focus-visible {
+  outline: 2px solid var(--clr-accent-100);
+  outline-offset: 4px;
 }
 
-ul {
-  list-style: none;
-}
-
-/* 2. ACCESSIBILITY: Skip Link */
 .skip-link {
   position: absolute;
-  top: -100px;
-  left: 0;
-  background: var(--accent-primary);
-  color: var(--bg-primary);
-  padding: 1rem;
+  inset-block-start: -100px;
+  inset-inline-start: 1rem;
+  background: var(--clr-accent-100);
+  color: var(--clr-bg-100);
+  padding: 0.75rem 1.5rem;
   z-index: 1000;
+  font-weight: 600;
+  border-radius: 0 0 var(--radius-md) var(--radius-md);
+  transition: inset-block-start var(--transition-base);
 }
 
 .skip-link:focus {
-  top: 0;
+  inset-block-start: 0;
 }
 
-/* 3. HEADER & NAVIGATION - FLEXBOX */
-header {
-  height: var(--header-height);
+/* 3. SITE HEADER & NAVIGATION (BEST PRACTICE: Flexbox) */
+body > header {
+  block-size: var(--size-header);
   background: var(--glass-bg);
   backdrop-filter: blur(12px);
   border-bottom: 1px solid var(--glass-border);
   position: sticky;
-  top: 0;
+  inset-block-start: 0;
   z-index: 100;
 }
 
 nav {
-  max-width: var(--container-width);
-  margin: 0 auto;
+  max-width: var(--size-container);
+  margin-inline: auto;
   height: 100%;
-  padding: 0 2rem;
-  /* FLEXBOX: Logo and Menu alignment */
+  padding-inline: 1.5rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  gap: 1rem;
 }
 
 .logo {
-  font-family: "Outfit", sans-serif;
   font-size: 1.8rem;
   font-weight: 700;
   background: linear-gradient(
     to right,
-    var(--accent-primary),
-    var(--accent-secondary)
+    var(--clr-accent-100),
+    var(--clr-accent-200)
   );
   -webkit-background-clip: text;
+  background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
 nav ul {
-  /* FLEXBOX: Navigation Links */
   display: flex;
-  gap: 2.5rem;
+  gap: 1.5rem;
+  list-style: none;
+  flex-wrap: wrap;
+  justify-content: flex-end;
 }
 
-nav ul li a {
+nav a {
+  text-decoration: none;
+  color: var(--clr-txt-200);
   font-weight: 500;
-  color: var(--text-secondary);
+  transition: color var(--transition-base);
 }
 
-nav ul li a:hover,
-nav ul li a[aria-current="page"] {
-  color: var(--accent-primary);
+nav a:hover,
+nav a[aria-current="page"] {
+  color: var(--clr-accent-100);
 }
 
-/* 4. MAIN CONTENT LAYOUT - GRID */
+/* 4. MAIN CONTENT (BEST PRACTICE: Modern Grid) */
 main {
-  max-width: var(--container-width);
-  margin: 2rem auto;
-  padding: 0 2rem;
+  max-width: var(--size-container);
+  margin-inline: auto;
+  padding: 2rem;
   width: 100%;
 }
 
-section {
-  padding: 4rem 0;
-  border-bottom: 1px solid var(--glass-border);
+section,
+article {
+  padding-block: 4rem;
 }
 
-section:last-of-type {
-  border-bottom: none;
+section + section,
+article + section {
+  border-block-start: 1px solid var(--glass-border);
 }
 
-/* 5. FOOTER STYLING */
+/* 5. FOOTER (BEST PRACTICE: Descriptive Tags) */
 footer {
-  padding: 3rem 2rem;
-  background: var(--bg-secondary);
+  padding-block: 3rem;
+  background-color: var(--clr-bg-200);
   text-align: center;
-  border-top: 1px solid var(--glass-border);
+  border-block-start: 1px solid var(--glass-border);
 }
 
 .attribution {
   display: block;
-  margin-top: 1rem;
-  color: var(--text-secondary);
+  margin-block-start: 1.5rem;
+  color: var(--clr-txt-200);
   font-size: 0.85rem;
 }
 
-/* 6. RESPONSIVE DESIGN FOUNDATION */
+/* 6. CV SPECIFIC STYLES (BEST PRACTICE: Grid Layout) */
+.cv-container {
+  max-width: 800px;
+  margin-inline: auto;
+}
+
+.cv-header {
+  margin-block-end: 2rem;
+  padding-block-end: 2rem;
+  border-block-end: 1px solid var(--glass-border);
+}
+
+.cv-header h1 {
+  margin-block-end: 0.5rem;
+}
+
+.cv-header .title {
+  color: var(--clr-accent-100);
+  font-weight: 600;
+  font-size: 1.2rem;
+}
+
+.contact-info {
+  margin-block-start: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.skills-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2rem;
+  margin-block-start: 1.5rem;
+}
+
+.skill-group h3 {
+  margin-block-end: 1rem;
+  color: var(--clr-accent-200);
+}
+
+.skill-group ul {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.skill-group li {
+  background: var(--clr-bg-200);
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  border: 1px solid var(--glass-border);
+}
+
+/* 7. RESPONSIVE (BEST PRACTICE: Mobile First / Modular Queries) */
 @media (max-width: 768px) {
   nav {
     flex-direction: column;
     height: auto;
-    padding: 1rem;
+    padding-block: 1.5rem;
   }
 
   nav ul {
-    margin-top: 1rem;
-    gap: 1rem;
+    margin-block-start: 1rem;
+    gap: 1.5rem;
   }
 }

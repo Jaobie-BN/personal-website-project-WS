@@ -3,16 +3,306 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="Curriculum Vitae - Professional details for Milopa." />
-    <link rel="icon" href="/public/favicon.png" type="image/png" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Outfit:wght@400;600;700&display=swap"
-      rel="stylesheet"
+    <meta
+      name="description"
+      content="Curriculum Vitae - Professional details for Milopa."
     />
-    <link rel="stylesheet" href="css/style.css" />
-    <noscript><link rel="stylesheet" href="css/style.css" /></noscript>
+    <link rel="icon" href="/public/favicon.png" type="image/png" />
+    <link
+      rel="preload"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Outfit:wght@400;600;700&display=swap"
+      as="style"
+      onload="
+        this.onload = null;
+        this.rel = 'stylesheet';
+      "
+    />
+    <noscript>
+      <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Outfit:wght@400;600;700&display=swap"
+        rel="stylesheet"
+      />
+    </noscript>
+    <style>
+      :root {
+        --clr-bg-100: #050510;
+        --clr-bg-200: #0a0a1a;
+        --clr-accent-100: #00f0ff;
+        --clr-accent-200: #ff003c;
+        --clr-accent-300: #7a00ff;
+        --clr-txt-100: #ffffff;
+        --clr-txt-200: #a0a0b0;
+        --glass-bg: rgba(255, 255, 255, 0.03);
+        --glass-border: rgba(255, 255, 255, 0.1);
+        --shadow-sm: 0 4px 30px rgba(0, 0, 0, 0.1);
+        --shadow-md: 0 10px 40px rgba(0, 0, 0, 0.5);
+        --size-container: 1000px;
+        --size-header: 80px;
+        --radius-md: 16px;
+        --transition-base: 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+      }
+      *,
+      ::after,
+      ::before {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      html {
+        scroll-behavior: smooth;
+        color-scheme: dark;
+      }
+      body {
+        font-family: "Inter", system-ui, sans-serif;
+        background-color: var(--clr-bg-100);
+        color: var(--clr-txt-100);
+        line-height: 1.7;
+        min-inline-size: 320px;
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+        position: relative;
+        overflow-x: hidden;
+      }
+      body::before {
+        content: "";
+        position: fixed;
+        top: -50%;
+        left: -50%;
+        width: 200%;
+        height: 200%;
+        background:
+          radial-gradient(
+            circle at 30% 70%,
+            rgba(122, 0, 255, 0.08) 0%,
+            transparent 40%
+          ),
+          radial-gradient(
+            circle at 70% 30%,
+            rgba(0, 240, 255, 0.08) 0%,
+            transparent 40%
+          );
+        animation: bg-drift 20s infinite alternate ease-in-out;
+        z-index: -1;
+      }
+      @keyframes bg-drift {
+        0% {
+          transform: rotate(0deg);
+        }
+        100% {
+          transform: rotate(5deg) scale(1.1);
+        }
+      }
+      h1,
+      h2,
+      h3 {
+        font-family: "Outfit", sans-serif;
+        line-height: 1.2;
+        margin-bottom: 1rem;
+      }
+      h1 {
+        font-size: clamp(2.5rem, 6vw, 4rem);
+        background: linear-gradient(135deg, #fff, #a0a0b0);
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+      h2 {
+        font-size: clamp(1.8rem, 4vw, 2.8rem);
+        background: linear-gradient(
+          135deg,
+          var(--clr-accent-100),
+          var(--clr-accent-300)
+        );
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+        margin-top: 2rem;
+      }
+      body > header {
+        height: var(--size-header);
+        background: rgba(5, 5, 16, 0.6);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        border-bottom: 1px solid var(--glass-border);
+        position: sticky;
+        top: 0;
+        z-index: 100;
+      }
+      nav {
+        max-width: var(--size-container);
+        margin: 0 auto;
+        height: 100%;
+        padding: 0 2rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      .logo {
+        font-size: 20px;
+        font-weight: 700;
+        background: linear-gradient(
+          to right,
+          var(--clr-accent-100),
+          var(--clr-accent-300)
+        );
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+        letter-spacing: -1px;
+      }
+      nav ul {
+        display: flex;
+        gap: 2rem;
+        list-style: none;
+      }
+      nav a {
+        text-decoration: none;
+        color: var(--clr-txt-200);
+        font-weight: 500;
+        font-family: "Outfit", sans-serif;
+        transition: var(--transition-base);
+      }
+      nav a:hover,
+      nav a[aria-current="page"] {
+        color: var(--clr-txt-100);
+        text-shadow: 0 0 10px rgba(0, 240, 255, 0.4);
+      }
+      .menu-toggle {
+        display: none;
+      }
+      main {
+        max-width: var(--size-container);
+        margin: 0 auto;
+        padding: 4rem 2rem;
+        flex: 1;
+        width: 100%;
+      }
+      @keyframes fade-in-up {
+        0% {
+          opacity: 0;
+          transform: translateY(30px);
+        }
+        100% {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      article,
+      section {
+        opacity: 0;
+        animation: fade-in-up 0.8s ease-out forwards;
+      }
+      .cv-container {
+        max-width: 800px;
+        margin: 0 auto;
+      }
+      .cv-header {
+        text-align: center;
+        margin-bottom: 4rem;
+        padding-bottom: 2rem;
+        border-bottom: 1px solid var(--glass-border);
+      }
+      .cv-header .title {
+        color: var(--clr-accent-100);
+        font-weight: 600;
+        font-size: 1.4rem;
+        margin-top: 0.5rem;
+        letter-spacing: 1px;
+      }
+      .contact-info {
+        margin-top: 1.5rem;
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+      }
+      .contact-info a {
+        color: var(--clr-txt-100);
+        text-decoration: none;
+        transition: var(--transition-base);
+      }
+      .contact-info a:hover {
+        color: var(--clr-accent-100);
+      }
+      .skills-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 2.5rem;
+        margin-top: 2rem;
+      }
+      .skill-group {
+        background: var(--glass-bg);
+        backdrop-filter: blur(10px);
+        border: 1px solid var(--glass-border);
+        padding: 2rem;
+        border-radius: var(--radius-md);
+        transition: var(--transition-base);
+      }
+      .skill-group:hover {
+        transform: translateY(-5px);
+        border-color: var(--clr-accent-100);
+      }
+      .skill-group h3 {
+        color: var(--clr-accent-100);
+        margin-bottom: 1.5rem;
+        font-family: "Outfit", sans-serif;
+      }
+      .skill-group ul {
+        list-style: none;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.75rem;
+      }
+      .skill-group li {
+        background: rgba(255, 255, 255, 0.05);
+        padding: 0.5rem 1rem;
+        border-radius: 50px;
+        font-size: 0.9rem;
+        border: 1px solid var(--glass-border);
+        color: var(--clr-txt-200);
+      }
+      .experience-item {
+        background: var(--glass-bg);
+        backdrop-filter: blur(10px);
+        border: 1px solid var(--glass-border);
+        padding: 2.5rem;
+        border-radius: var(--radius-md);
+        margin-top: 2rem;
+      }
+      .experience-item h3 {
+        margin-bottom: 0.5rem;
+      }
+      .duration {
+        color: var(--clr-accent-100);
+        font-weight: 600;
+        font-size: 0.9rem;
+        margin-bottom: 1rem;
+      }
+      footer {
+        padding: 3rem 2rem;
+        background-color: var(--clr-bg-200);
+        text-align: center;
+        border-top: 1px solid var(--glass-border);
+        margin-top: auto;
+      }
+      .attribution {
+        display: block;
+        margin-top: 1rem;
+        color: var(--clr-txt-200);
+        font-size: 0.9rem;
+      }
+      @media (max-width: 768px) {
+        nav ul {
+          display: none;
+        }
+        main {
+          padding: 2rem 1rem;
+        }
+        .cv-header {
+          margin-bottom: 2rem;
+        }
+      }
+    </style>
   </head>
   <body>
     <a href="#main-content" class="skip-link">Skip to main content</a>

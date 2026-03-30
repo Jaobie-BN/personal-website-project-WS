@@ -8,14 +8,304 @@
       content="Mini Game - Interactive experience for Milopa's Portfolio."
     />
     <link rel="icon" href="/public/favicon.png" type="image/png" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
+      rel="preload"
       href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Outfit:wght@400;600;700&display=swap"
-      rel="stylesheet"
+      as="style"
+      onload="
+        this.onload = null;
+        this.rel = 'stylesheet';
+      "
     />
-    <link rel="stylesheet" href="css/style.css" />
-    <noscript><link rel="stylesheet" href="css/style.css" /></noscript>
+    <noscript>
+      <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Outfit:wght@400;600;700&display=swap"
+        rel="stylesheet"
+      />
+    </noscript>
+    <style>
+      :root {
+        --clr-bg-100: #050510;
+        --clr-bg-200: #0a0a1a;
+        --clr-accent-100: #00f0ff;
+        --clr-accent-200: #ff003c;
+        --clr-accent-300: #7a00ff;
+        --clr-txt-100: #ffffff;
+        --clr-txt-200: #a0a0b0;
+        --glass-bg: rgba(255, 255, 255, 0.03);
+        --glass-border: rgba(255, 255, 255, 0.1);
+        --shadow-sm: 0 4px 30px rgba(0, 0, 0, 0.1);
+        --shadow-md: 0 10px 40px rgba(0, 0, 0, 0.5);
+        --size-container: 1000px;
+        --size-header: 80px;
+        --radius-md: 16px;
+        --transition-base: 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+      }
+      *,
+      ::after,
+      ::before {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      html {
+        scroll-behavior: smooth;
+        color-scheme: dark;
+      }
+      body {
+        font-family: "Inter", system-ui, sans-serif;
+        background-color: var(--clr-bg-100);
+        color: var(--clr-txt-100);
+        line-height: 1.7;
+        min-inline-size: 320px;
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+        position: relative;
+        overflow-x: hidden;
+      }
+      body::before {
+        content: "";
+        position: fixed;
+        top: -50%;
+        left: -50%;
+        width: 200%;
+        height: 200%;
+        background:
+          radial-gradient(
+            circle at 30% 70%,
+            rgba(122, 0, 255, 0.08) 0%,
+            transparent 40%
+          ),
+          radial-gradient(
+            circle at 70% 30%,
+            rgba(0, 240, 255, 0.08) 0%,
+            transparent 40%
+          );
+        animation: bg-drift 20s infinite alternate ease-in-out;
+        z-index: -1;
+      }
+      @keyframes bg-drift {
+        0% {
+          transform: rotate(0deg);
+        }
+        100% {
+          transform: rotate(5deg) scale(1.1);
+        }
+      }
+      h1,
+      h2,
+      h3 {
+        font-family: "Outfit", sans-serif;
+        line-height: 1.2;
+        margin-bottom: 1rem;
+      }
+      h1 {
+        font-size: clamp(2.5rem, 6vw, 4rem);
+        background: linear-gradient(135deg, #fff, #a0a0b0);
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+      body > header {
+        height: var(--size-header);
+        background: rgba(5, 5, 16, 0.6);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        border-bottom: 1px solid var(--glass-border);
+        position: sticky;
+        top: 0;
+        z-index: 100;
+      }
+      nav {
+        max-width: var(--size-container);
+        margin: 0 auto;
+        height: 100%;
+        padding: 0 2rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      .logo {
+        font-size: 20px;
+        font-weight: 700;
+        background: linear-gradient(
+          to right,
+          var(--clr-accent-100),
+          var(--clr-accent-300)
+        );
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+        letter-spacing: -1px;
+      }
+      nav ul {
+        display: flex;
+        gap: 2rem;
+        list-style: none;
+      }
+      nav a {
+        text-decoration: none;
+        color: var(--clr-txt-200);
+        font-weight: 500;
+        font-family: "Outfit", sans-serif;
+        transition: var(--transition-base);
+      }
+      nav a:hover,
+      nav a[aria-current="page"] {
+        color: var(--clr-txt-100);
+        text-shadow: 0 0 10px rgba(0, 240, 255, 0.4);
+      }
+      .menu-toggle {
+        display: none;
+      }
+      main {
+        max-width: var(--size-container);
+        margin: 0 auto;
+        padding: 4rem 2rem;
+        flex: 1;
+        width: 100%;
+      }
+      @keyframes fade-in-up {
+        0% {
+          opacity: 0;
+          transform: translateY(30px);
+        }
+        100% {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      section {
+        opacity: 0;
+        animation: fade-in-up 0.8s ease-out forwards;
+      }
+      #game-container {
+        max-width: 600px;
+        margin: 0 auto;
+        text-align: center;
+      }
+      .game-header {
+        background: var(--glass-bg);
+        backdrop-filter: blur(12px);
+        border: 1px solid var(--glass-border);
+        padding: 3rem 2rem;
+        border-radius: 24px;
+        margin-bottom: 3rem;
+        box-shadow: var(--shadow-md);
+        position: relative;
+        overflow: hidden;
+      }
+      .game-header::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 4px;
+        background: linear-gradient(
+          90deg,
+          var(--clr-accent-100),
+          var(--clr-accent-300)
+        );
+      }
+      .game-stats {
+        display: flex;
+        justify-content: center;
+        gap: 3rem;
+        font-size: 1.5rem;
+        font-weight: 700;
+        margin: 1.5rem 0;
+        font-family: "Outfit", sans-serif;
+        color: var(--clr-accent-100);
+      }
+      .btn-primary {
+        background: linear-gradient(
+          135deg,
+          var(--clr-accent-100),
+          var(--clr-accent-300)
+        );
+        color: var(--clr-bg-100);
+        border: none;
+        padding: 1rem 2.5rem;
+        font-weight: 700;
+        border-radius: 50px;
+        cursor: pointer;
+        font-family: "Outfit", sans-serif;
+        transition: var(--transition-base);
+        font-size: 1.1rem;
+        box-shadow: 0 10px 20px rgba(0, 240, 255, 0.2);
+      }
+      .btn-primary:hover {
+        transform: translateY(-3px) scale(1.05);
+        box-shadow: 0 15px 30px rgba(0, 240, 255, 0.4);
+      }
+      .btn-primary:active {
+        transform: scale(0.95);
+      }
+      .game-board {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1.5rem;
+        margin-top: 2rem;
+      }
+      .hole {
+        aspect-ratio: 1;
+        background: var(--clr-bg-200);
+        border-radius: 50%;
+        position: relative;
+        overflow: hidden;
+        border: 4px solid var(--glass-border);
+        box-shadow: inset 0 10px 30px rgba(0, 0, 0, 0.8);
+        transition: var(--transition-base);
+      }
+      .mole {
+        width: 80%;
+        height: 80%;
+        background: radial-gradient(
+          circle at 30% 30%,
+          var(--clr-accent-300),
+          #5a00bd
+        );
+        border-radius: 50% 50% 10% 10%;
+        position: absolute;
+        bottom: -100%;
+        left: 10%;
+        transition: bottom 0.1s ease-out;
+        box-shadow: 0 0 20px var(--clr-accent-300);
+      }
+      .hole.up .mole {
+        bottom: 0;
+      }
+      footer {
+        padding: 3rem 2rem;
+        background-color: var(--clr-bg-200);
+        text-align: center;
+        border-top: 1px solid var(--glass-border);
+        margin-top: auto;
+      }
+      .attribution {
+        display: block;
+        margin-top: 1rem;
+        color: var(--clr-txt-200);
+        font-size: 0.9rem;
+      }
+      @media (max-width: 768px) {
+        nav ul {
+          display: none;
+        }
+        main {
+          padding: 2rem 1rem;
+        }
+        .game-board {
+          gap: 0.75rem;
+        }
+        .game-stats {
+          gap: 1.5rem;
+          font-size: 1.2rem;
+        }
+      }
+    </style>
   </head>
   <body>
     <a href="#main-content" class="skip-link">Skip to main content</a>

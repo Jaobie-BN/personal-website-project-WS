@@ -50,16 +50,28 @@
     <!-- Main Content: Root for all page content -->
     <main id="main-content">
       <!-- Hero/About Section -->
-      <article id="about">
-        <h1>Welcome to My Personal Website</h1>
-        <section>
-          <h2>Introduction</h2>
-          <p>
-            ผมเป็นนักศึกษาจาก คณะครุศาสตร์อุตสาหกรรมและเทคโนโลยี (FIET)
-            สถาบันเทคโนโลยีพระจอมเกล้าเจ้าคุณทหารลาดกระบัง (KMITL)
-            โดยเว็บไซต์นี้เป็นส่วนหนึ่งของวิชาเทคโนโลยีเว็บ (Web Technology)
-          </p>
-        </section>
+      <article id="about" class="hero-section">
+        <div class="hero-content">
+          <h1>Welcome to My Personal Website</h1>
+          <section>
+            <h2>Introduction</h2>
+            <p>
+              ผมเป็นนักศึกษาจาก คณะครุศาสตร์อุตสาหกรรมและเทคโนโลยี (FIET)
+              สถาบันเทคโนโลยีพระจอมเกล้าเจ้าคุณทหารลาดกระบัง (KMITL)
+              โดยเว็บไซต์นี้เป็นส่วนหนึ่งของวิชาเทคโนโลยีเว็บ (Web Technology)
+            </p>
+          </section>
+        </div>
+        <div class="hero-image">
+          <img
+            src="public/profile.jpg"
+            alt="Milopa Profile Picture"
+            width="250"
+            height="250"
+            fetchpriority="high"
+            decoding="async"
+          />
+        </div>
       </article>
 
       <!-- Project Overview Section -->
@@ -79,13 +91,27 @@
       </section>
 
       <!-- Contact Section -->
-      <section id="contact">
-        <h2>Get In Touch</h2>
-        <p>
-          I'm always open to new opportunities and collaborations. Whether you
-          have a project in mind or just want to say hi, feel free to connect.
-        </p>
-        <p>Contact Details: [To be added]</p>
+      <section id="contact" class="contact-section">
+        <div class="contact-card border-glass">
+          <h2>Get In Touch</h2>
+          <p>
+            หากมีข้อสงสัย คำแนะนำ หรือสนใจพูดคุยเกี่ยวกับโปรเจกต์ต่างๆ
+            สามารถติดต่อผมได้ตามช่องทางด้านล่างนี้ได้เลยครับ
+            ยินดีที่ได้รู้จักครับ!
+          </p>
+          <div class="contact-links">
+            <a href="mailto:your.email@kmitl.ac.th" class="btn-contact"
+              >✉️ Email Me</a
+            >
+            <a
+              href="https://github.com/your-github"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="btn-contact"
+              >🐙 GitHub</a
+            >
+          </div>
+        </div>
       </section>
     </main>
 

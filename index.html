@@ -152,7 +152,8 @@
           var(--clr-accent-100),
           var(--clr-accent-300)
         );
-        -background-clip: text;
+        -webkit-background-clip: text;
+        background-clip: text;
         -webkit-text-fill-color: transparent;
         letter-spacing: -1px;
       }
@@ -391,7 +392,6 @@
     <!-- 
         ACCESSIBILITY: Skip link for keyboard users.
     -->
-    <a href="#main-content" class="skip-link">Skip to main content</a>
 
     <!-- Header Section: Semantic navigation -->
     <header>
